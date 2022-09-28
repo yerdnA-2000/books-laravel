@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Requests\Genre;
+namespace App\Http\Requests\Genre;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:55|unique:genres',
+            'genre_id' => 'required|integer',   //для исключения из проверки текущей записи на уникальность 'title'
+            'title' => 'required|string|max:55|unique:genres,title,' . $this->genre_id,
         ];
     }
 }

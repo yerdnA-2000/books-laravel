@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Book;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GenreResource extends JsonResource
+class BookResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
