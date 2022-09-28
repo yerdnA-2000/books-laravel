@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('books_genres', function (Blueprint $table) {
+        Schema::create('book_genre', function (Blueprint $table) {
             $table->id();
             $table->foreignId('genre_id')->index()->constrained('genres');
             $table->foreignId('book_id')->index()->constrained('books');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books_genres');
+        Schema::dropIfExists('book_genre');
     }
 };
