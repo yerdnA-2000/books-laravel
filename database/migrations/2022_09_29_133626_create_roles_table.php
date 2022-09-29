@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->unsignedSmallInteger('id')->autoIncrement();
-            $table->string('name');
-            $table->string('slug');
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

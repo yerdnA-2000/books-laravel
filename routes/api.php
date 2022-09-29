@@ -26,3 +26,17 @@ Route::get('/user/{id}', function (Request $request, $id) {
     if (!$user) return response('', 404);
     return $user;
 });
+
+/*---For Test---*/
+Route::group(['prefix' => 'test'], function () {
+    Route::get('/user/{id}/is-admin', function ($id) {
+        $user = \App\Models\User::find($id);
+        return $user->hasRole('admin');
+    });
+});
+
+Route::group(['middleware' => 'role:admin'], function() {
+    Route::get('/dashboard', function() {
+        return 'Добро пожаловать, Администратор';
+    });
+});
