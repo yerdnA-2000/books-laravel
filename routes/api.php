@@ -20,3 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/', \App\Http\Controllers\API\Book\IndexController::class);
 Route::post('/sign-up', \App\Http\Controllers\API\User\StoreController::class);
+
+Route::get('/user/{id}', function (Request $request, $id) {
+    $user = \App\Models\User::find($id);
+    if (!$user) return response('', 404);
+    return $user;
+});
