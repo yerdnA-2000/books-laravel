@@ -1,6 +1,12 @@
-GET http://127.0.0.1:8000/api/user/1
+GET http://127.0.0.1:8000/api/users/1
 Accept: application/json
 
 ###
-GET http://127.0.0.1:8000/api/test/user/2/is-admin
+GET http://127.0.0.1:8000/api/test/users/2/is-admin
 Accept: text/html
+
+###
+GET http://127.0.0.1:8000/users
+Accept: application/json
+
+

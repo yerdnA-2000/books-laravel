@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\API\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer', /*
-                * для исключения из проверки текущей записи на уникальность 'email'
-                * value from hidden input
-                */
-            'email' => 'required|email|max:255|unique:users,email,' . $this->user_id,
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string',
         ];
     }
 
@@ -40,6 +37,7 @@ class UpdateRequest extends FormRequest
             'email.unique:users,email' => 'Пользователь с таким email уже существует',
             'email.max:255' => 'Слишком много символов',
             'password.required' => 'Это поле необходимо для заполнения',
+            'password.string' => 'Данные в поле не соответствуют текстовому формату',
         ];
     }
 }

@@ -18,10 +18,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/', \App\Http\Controllers\API\Book\IndexController::class);
-Route::post('/sign-up', \App\Http\Controllers\API\User\StoreController::class);
+Route::post('register', 'API\RegisterController@register');
+Route::middleware('auth:api')->group( function () {
+    Route::resource('products', 'API\ProductController');
+});
 
-Route::get('/user/{id}', function (Request $request, $id) {
+Route::get('/books', \App\Http\Controllers\API\Book\IndexController::class);
+Route::post('/users', \App\Http\Controllers\API\User\StoreController::class);
+
+Route::get('/users/{id}', function (Request $request, $id) {
     $user = \App\Models\User::find($id);
     if (!$user) return response('', 404);
     return $user;
