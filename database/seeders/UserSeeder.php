@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Author;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -18,16 +19,25 @@ class UserSeeder extends Seeder
 
         $user1 = new User();
         $user1->email = 'vasya@test.com';
-        $user1->password = bcrypt('secret');
+        $user1->password = 'vasya';
         $user1->save();
+        $user1->author()->save(new Author(['full_name' => 'Васильев Василий Васильевич']));
         $user1->roles()->attach($author);
         $user1->permissions()->attach($createBooks);
 
         $user2 = new User();
         $user2->email = 'admin@test.com';
-        $user2->password = bcrypt('secret');
+        $user2->password = 'admin';
         $user2->save();
         $user2->roles()->attach($admin);
         $user2->permissions()->attach($manageAccount);
+
+        $user1 = new User();
+        $user1->email = 'maxim@test.com';
+        $user1->password = 'maxim';
+        $user1->save();
+        $user1->author()->save(new Author(['full_name' => 'Максимов Максим Максимович']));
+        $user1->roles()->attach($author);
+        $user1->permissions()->attach($createBooks);
     }
 }

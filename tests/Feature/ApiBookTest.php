@@ -2,21 +2,19 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ApiBookTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function test_api_book_index()
     {
-        $response = $this->get('/api/books');
+        $token = User::where('email', 'vasya@test.com')->first()->api_token;
 
-        $response->assertJson(['data' => []]);
+        $response = $this->get('/api/books?api_token=' . $token);
+
+        $response->assertStatus(200);
     }
 }

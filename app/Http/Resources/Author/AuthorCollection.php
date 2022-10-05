@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Author;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCollection extends ResourceCollection
+class AuthorCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,7 +16,6 @@ class UserCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection,
-            'count_users' => $this->collection->count(),
         ];
     }
 }

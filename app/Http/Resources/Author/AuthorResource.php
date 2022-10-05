@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Author;
 
+use App\Http\Resources\Book\BookCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthorResource extends JsonResource
@@ -14,6 +15,10 @@ class AuthorResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'full_name' => $this->full_name,
+            'books' => new BookCollection($this->books),
+        ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Book;
 
+use App\Http\Resources\Author\AuthorResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class BookCollection extends ResourceCollection
@@ -14,6 +15,9 @@ class BookCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => $this->collection,
+            'count_books' => $this->collection->count(),
+        ];
     }
 }
