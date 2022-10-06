@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\API\Auth\Registration;
+namespace App\Http\Controllers\API\Auth;
 
-use App\Http\Controllers\API\Auth\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\API\User\StoreRequest;
 use App\Http\Resources\User\UserResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class StoreController extends BaseController
+class RegisterController extends BaseController
 {
     public function __invoke(StoreRequest $request)
     {
         if (Auth::check()) {
-            return response()->json(['message' => 'Вы уже авторизованы', 'status' => 200]);
+            return response()->json(['message' => 'Вы уже авторизованы']);
         }
 
         $data = $request->validated();

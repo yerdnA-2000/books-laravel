@@ -4,7 +4,7 @@ namespace App\Http\Resources\Book;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class BookCollection extends ResourceCollection
+class BookWithoutAuthorCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -16,7 +16,6 @@ class BookCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection,
-            'count_books' => $this->collection->count(),
         ];
     }
 }

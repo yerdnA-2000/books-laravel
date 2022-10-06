@@ -14,13 +14,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRolesAndPermissions;
 
-    public function save(array $options = array()) {
-        if(isset($this->remember_token))
-            unset($this->remember_token);
-
-        return parent::save($options);
-    }
-
     public function setPasswordAttribute($password) {
         $this->attributes['password'] = Hash::make($password);
     }

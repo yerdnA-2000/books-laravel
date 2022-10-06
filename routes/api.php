@@ -23,8 +23,7 @@ Route::middleware('auth:api')->group( function () {
     Route::resource('products', 'API\ProductController');
 });*/
 
-Route::get('/books', \App\Http\Controllers\API\Book\IndexController::class);
-Route::post('/users', \App\Http\Controllers\API\User\StoreController::class);
+/*Route::post('/users', \App\Http\Controllers\API\User\StoreController::class);
 
 Route::get('/users/{id}', function (Request $request, $id) {
     $user = \App\Models\User::find($id);
@@ -32,35 +31,48 @@ Route::get('/users/{id}', function (Request $request, $id) {
     return $user;
 });
 
-/*---For Test---*/
 Route::group(['prefix' => 'test'], function () {
     Route::get('/user/{id}/is-admin', function ($id) {
         $user = \App\Models\User::find($id);
         return $user->hasRole('admin');
     });
-});
+});*/
 
-Route::group(['middleware' => ['auth:api', 'role:author']], function() {
-    Route::get('/', \App\Http\Controllers\Dashboard\IndexController::class);
+//---Регистрация пользователя
+Route::post('/registration', \App\Http\Controllers\API\Auth\RegisterController::class);
 
-    Route::get('/logout', \App\Http\Controllers\API\Auth\Logout\IndexController::class);
+//---Запрос на авторизацию пользователя
+Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class);
 
-    Route::delete('/books/{id}', \App\Http\Controllers\API\Book\DeleteController::class);
-    Route::put('/books/{id}', \App\Http\Controllers\API\Book\UpdateController::class);
-});
-
-
-Route::get('/registration', \App\Http\Controllers\API\Auth\Registration\IndexController::class);
-Route::post('/registration', \App\Http\Controllers\API\Auth\Registration\StoreController::class);
-
-Route::get('/login', \App\Http\Controllers\API\Auth\Login\IndexController::class);
-Route::post('/login', \App\Http\Controllers\API\Auth\Login\LoginController::class);
-
+//---Получение списка книг с именем автора, авторизация не обязательна
 Route::get('/books', \App\Http\Controllers\API\Book\IndexController::class);
+
+//---Получение данных книги по id, авторизация не обязательна
 Route::get('/books/{id}', \App\Http\Controllers\API\Book\ShowController::class);
 
 //---Получение списка авторов с указанием количества книг, авторизация не обязательна
 Route::get('/authors', \App\Http\Controllers\API\Author\IndexController::class);
+
+//---Получение данных автора со списком книг, авторизация не обязательна
+Route::get('/authors/{id}', \App\Http\Controllers\API\Author\ShowController::class);
+
+Route::group(['middleware' => ['auth:api', 'role:author']], function() {
+
+    //---Удаление книги, авторизация под автором книги обязательна
+    Route::delete('/books/{id}', \App\Http\Controllers\API\Book\DeleteController::class);
+
+    //---Обновление данных книги, авторизация под автором книги обязательна
+    Route::put('/books/{id}', \App\Http\Controllers\API\Book\UpdateController::class);
+
+    //---Обновление данных автора, авторизация под  автором обязательна (можно обновлять только свои данные)
+    Route::put('/authors/{id}', \App\Http\Controllers\API\Author\UpdateController::class);
+
+    Route::get('/logout', \App\Http\Controllers\API\Auth\LogoutController::class);
+});
+
+
+
+
 
 
 

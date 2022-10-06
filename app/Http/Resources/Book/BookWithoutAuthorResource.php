@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources\Book;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class BookCollection extends ResourceCollection
+class BookWithoutAuthorResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
@@ -15,8 +15,8 @@ class BookCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection,
-            'count_books' => $this->collection->count(),
+            'id' => $this->id,
+            'title' => $this->title,
         ];
     }
 }

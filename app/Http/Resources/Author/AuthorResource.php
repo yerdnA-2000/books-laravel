@@ -18,7 +18,6 @@ class AuthorResource extends JsonResource
         return [
             'id' => $this->id,
             'full_name' => $this->full_name,
-            'books' => new BookCollection($this->books),
         ];
     }
 }

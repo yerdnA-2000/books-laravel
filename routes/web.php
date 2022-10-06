@@ -21,14 +21,11 @@ Route::get('/books', \App\Http\Controllers\Book\IndexController::class);
 
 Route::get('/users', \App\Http\Controllers\User\IndexController::class);
 
-Route::name('users.')->group(function () {
+Route::get('/login', \App\Http\Controllers\Auth\Login\IndexController::class)->name('login');
 
-    Route::get('/login', \App\Http\Controllers\Auth\Login\IndexController::class)->name('login');
+Route::post('/login', \App\Http\Controllers\Auth\Login\AttemptController::class)->name('login.attempt');
 
-    Route::post('/login', \App\Http\Controllers\Auth\Login\AttemptController::class)->name('login');
-
-    Route::get('/logout', \App\Http\Controllers\Auth\Logout\IndexController::class)->name('logout');
-});
+Route::get('/logout', \App\Http\Controllers\Auth\Logout\IndexController::class)->name('logout');
 
 
 
