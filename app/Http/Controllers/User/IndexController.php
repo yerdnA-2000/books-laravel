@@ -12,6 +12,6 @@ class IndexController extends Controller
     {
         $users = User::all();
 
-        return new UserCollection($users);
+        return view('users.index', compact($users));
     }
 }

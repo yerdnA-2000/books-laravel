@@ -11,7 +11,7 @@
 <body>
 <div>
     <h1>Вход</h1>
-    <form action="{{ route('users.login') }}" method="post">
+    <form action="{{ route('login') }}" method="post">
         @csrf
 
         <input type="email" name="email" placeholder="Email" value="{{old('email')}}">
