@@ -10,7 +10,7 @@ class LogoutController extends Controller
 {
     public function __invoke()
     {
-        //Auth::logout();
+        Auth::user()->clearApiToken();
 
         return response()->json(['message' => 'Вы успешно вышли из аккаунта', 'user' => Auth::guard('api')->check()]);
     }

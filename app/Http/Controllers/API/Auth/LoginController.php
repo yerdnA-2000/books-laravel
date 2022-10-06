@@ -20,6 +20,8 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($data)) {
+            Auth::user()->createNewApiToken();
+
             return response()->json(['message' => 'Вы успешно авторизованы', 'user' => Auth::user()]);
         }
 

@@ -13,7 +13,7 @@ class UserObserve
     {
         $this->user = &$model;
 
-        $this->user->api_token = Str::random(80);
+        $this->user->createNewToken();
 
         if (is_null($this->user->api_token)) return false;
 
