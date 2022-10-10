@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers\Book;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Book\UpdateRequest;
+use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
-    public function __invoke()
+    public function __invoke(UpdateRequest $request, Book $book)
     {
+        if (!Auth::user()->can('create-update-books')) {
+            abort(403, 'НЕТ ПРАВ');
+        }
 
+        $data = $request->validated();
+
+        $book = $this->service->update($data, $book);
+
+        return to_route('books.show', $book);
     }
 }

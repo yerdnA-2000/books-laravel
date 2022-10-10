@@ -10,7 +10,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $admin = new Role();
-        $admin->title = 'Админ';
+        $admin->title = 'Администратор';
         $admin->slug = 'admin';
         $admin->save();
 

@@ -18,7 +18,7 @@ class Service
 
         $user->roles()->attach($role);
         $user->permissions()->attach($createBooks);
-        $user->author()->save(new Author(['full_name' => 'test']));
+        $user->author()->save(new Author(['full_name' => 'null']));
 
         return $user;
     }

@@ -4,16 +4,19 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Traits\HasRolesAndPermissions;
+use App\Traits\Timestampable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRolesAndPermissions;
+    use HasFactory, Notifiable, HasRolesAndPermissions, Timestampable;
 
     public function setPasswordAttribute($password) {
         $this->attributes['password'] = Hash::make($password);
@@ -29,6 +32,10 @@ class User extends Authenticatable
 
     public function clearApiToken() {
         $this->update(['api_token' => null]);
+    }
+
+    public function isOnline() {
+        return Cache::has('user-is-online-' . $this->id);
     }
 
     protected $fillable = [

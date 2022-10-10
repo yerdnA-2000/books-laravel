@@ -24,8 +24,18 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'genre_id' => 'required|integer',   //для исключения из проверки текущей записи на уникальность 'title'
-            'title' => 'required|string|max:55|unique:genres,title,' . $this->genre_id,
+            'id' => 'required|integer',   //для исключения из проверки текущей записи на уникальность 'title'
+            'title' => 'required|string|max:55|unique:genres,title,' . $this->id,
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Это поле необходимо для заполнения',
+            'title.string' => 'Это поле не соответствует текстовому формату',
+            'title.max' => 'Слишком много символов',
+            'title.unique:genres,title' => 'Жанр с таким наименованием уже существует',
         ];
     }
 }

@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\Timestampable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Genre extends Model
 {
-    use HasFactory;
+    use HasFactory, Timestampable;
 
     public function books() {
         return $this->belongsToMany(Book::class, 'book_genre');
     }
 
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d',
-        'updated_at' => 'datetime:Y-m-d',
+    protected $fillable = [
+        'title'
     ];
+
+    protected $casts = [];
 }

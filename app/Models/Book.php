@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Timestampable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    use HasFactory;
+    use HasFactory, Timestampable;
 
     public function author() {
         return $this->belongsTo(Author::class);
@@ -19,9 +20,6 @@ class Book extends Model
 
     protected $fillable = [
         'title',
+        'author_id',
     ];
-
-    public function getCreatedAtAttribute() {
-        return \Carbon\Carbon::parse($this->attributes['created_at'])->format('d.m.Y H:i');
-    }
 }

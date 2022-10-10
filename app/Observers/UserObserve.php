@@ -9,11 +9,11 @@ class UserObserve
 {
     private $user;
 
-    public function creating( User &$model )
+    public function created( User &$model )
     {
         $this->user = &$model;
 
-        $this->user->createNewToken();
+        $this->user->createNewApiToken();
 
         if (is_null($this->user->api_token)) return false;
 

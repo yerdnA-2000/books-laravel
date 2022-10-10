@@ -12,6 +12,13 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
+        $authors = Author::with('user', 'books')
+            ->withCount('books')
+            ->orderByDesc('created_at')
+            ->get();
 
+        $authorsCount = $authors->count();
+
+        return view('authors.index', compact('authors', 'authorsCount'));
     }
 }

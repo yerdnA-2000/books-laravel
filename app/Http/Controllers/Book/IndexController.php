@@ -10,7 +10,10 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $books = Book::all();
-        return new BookCollection($books);
+        $books = Book::with('author')->orderByDesc('created_at')->get();
+
+        $booksCount = $books->count();
+
+        return view('books.index', compact('books', 'booksCount'));
     }
 }

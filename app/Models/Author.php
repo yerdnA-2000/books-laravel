@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Timestampable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-    use HasFactory;
+    use HasFactory, Timestampable;
 
     public function user() {
         return $this->belongsTo(User::class);

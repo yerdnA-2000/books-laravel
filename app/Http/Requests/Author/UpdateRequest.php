@@ -27,4 +27,13 @@ class UpdateRequest extends FormRequest
             'full_name' => 'required|string|max:255',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'full_name.required' => 'Это поле необходимо для заполнения',
+            'full_name.string' => 'Это поле не соответствует текстовому формату',
+            'full_name.max' => 'Слишком много символов',
+        ];
+    }
 }

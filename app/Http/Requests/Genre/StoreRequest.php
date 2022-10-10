@@ -27,4 +27,14 @@ class StoreRequest extends FormRequest
             'title' => 'required|string|max:55|unique:genres,title',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Это поле необходимо для заполнения',
+            'title.string' => 'Это поле не соответствует текстовому формату',
+            'title.max' => 'Слишком много символов',
+            'title.unique:genres,title' => 'Жанр с таким наименованием уже существует',
+        ];
+    }
 }

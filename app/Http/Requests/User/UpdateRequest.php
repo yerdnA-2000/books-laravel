@@ -24,11 +24,14 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer', /*
+            'id' => 'required|integer', /*
                 * для исключения из проверки текущей записи на уникальность 'email'
                 * value from hidden input
                 */
-            'email' => 'required|email|max:255|unique:users,email,' . $this->user_id,
+            'email' => 'nullable|email|max:255|unique:users,email,' . $this->id,
+            'password' => 'nullable|string',
+            'roles' => 'nullable|array',
+            'permissions' => 'nullable|array',
         ];
     }
 
@@ -38,8 +41,13 @@ class UpdateRequest extends FormRequest
             'email.required' => 'Это поле необходимо для заполнения',
             'email.email' => 'Почта не соответсвует формату user@some.domain',
             'email.unique:users,email' => 'Пользователь с таким email уже существует',
-            'email.max:255' => 'Слишком много символов',
+            'email.max' => 'Слишком много символов',
             'password.required' => 'Это поле необходимо для заполнения',
+            'password.string' => 'Данные в поле не соответствуют текстовому формату',
+            'roles.required' => 'Это поле необходимо для заполнения',
+            'roles.array' => 'Данные в поле не соответствуют формату',
+            'permissions.required' => 'Это поле необходимо для заполнения',
+            'permissions.array' => 'Данные в поле не соответствуют формату',
         ];
     }
 }
