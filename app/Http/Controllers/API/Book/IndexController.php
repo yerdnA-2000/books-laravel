@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $books = Book::with('author')->orderBy('title')->get();
+        $books = Book::with('author', 'genres')->orderBy('title')->get();
 
         return response()->json(['books' => new BookCollection($books)], 200);
     }

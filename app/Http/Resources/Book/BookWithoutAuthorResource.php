@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Book;
 
+use App\Http\Resources\Genre\GenreCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookWithoutAuthorResource extends JsonResource
@@ -17,6 +18,7 @@ class BookWithoutAuthorResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'genres' => new GenreCollection($this->genres),
         ];
     }
 }

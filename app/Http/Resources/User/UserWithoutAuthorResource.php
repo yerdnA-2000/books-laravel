@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Author;
+namespace App\Http\Resources\User;
 
-use App\Http\Resources\Book\BookCollection;
-use App\Http\Resources\User\UserWithoutAuthorResource;
+use App\Http\Resources\Author\AuthorResource;
+use App\Http\Resources\Author\AuthorWithoutUserResource;
+use App\Models\Author;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
-class AuthorResource extends JsonResource
+class UserWithoutAuthorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +20,7 @@ class AuthorResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'full_name' => $this->full_name,
-            'user' => new UserWithoutAuthorResource($this->user)
+            'email' => $this->email,
         ];
     }
 }

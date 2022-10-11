@@ -23,6 +23,9 @@ class UpdateController extends Controller
         }
 
         $book->update($data);
+        if (key_exists('genres', $data)) {
+            $book->genres()->sync($data['genres']);
+        }
 
         return response()->json([
             'message' => 'Данные книги успешно изменены',

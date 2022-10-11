@@ -21,7 +21,10 @@ class RegisterController extends BaseController
         $user = $this->service->create($data);
 
         if ($user) {
+            $user->createNewApiToken();
+
             Auth::login($user);
+
             return response()->json(['message' => 'Вы успешно зарегистрировались', 'user' => new UserResource($user)]);
         }
 

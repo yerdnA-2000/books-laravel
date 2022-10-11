@@ -3,41 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
-
-/*Route::post('register', 'API\RegisterController@register');
-Route::middleware('auth:api')->group( function () {
-    Route::resource('products', 'API\ProductController');
-});*/
-
-/*Route::post('/users', \App\Http\Controllers\API\User\StoreController::class);
-
-Route::get('/users/{id}', function (Request $request, $id) {
-    $user = \App\Models\User::find($id);
-    if (!$user) return response('', 404);
-    return $user;
-});
-
-Route::group(['prefix' => 'test'], function () {
-    Route::get('/user/{id}/is-admin', function ($id) {
-        $user = \App\Models\User::find($id);
-        return $user->hasRole('admin');
-    });
-});*/
-
 //---Регистрация пользователя
 Route::post('/registration', \App\Http\Controllers\API\Auth\RegisterController::class);
 
@@ -62,10 +27,10 @@ Route::group(['middleware' => ['auth:api', 'role:author']], function() {
     Route::delete('/books/{id}', \App\Http\Controllers\API\Book\DeleteController::class);
 
     //---Обновление данных книги, авторизация под автором книги обязательна
-    Route::put('/books/{id}', \App\Http\Controllers\API\Book\UpdateController::class);
+    Route::patch('/books/{id}', \App\Http\Controllers\API\Book\UpdateController::class);
 
     //---Обновление данных автора, авторизация под  автором обязательна (можно обновлять только свои данные)
-    Route::put('/authors/{id}', \App\Http\Controllers\API\Author\UpdateController::class);
+    Route::patch('/authors/{id}', \App\Http\Controllers\API\Author\UpdateController::class);
 
     Route::get('/logout', \App\Http\Controllers\API\Auth\LogoutController::class);
 });

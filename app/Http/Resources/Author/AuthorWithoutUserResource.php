@@ -2,11 +2,9 @@
 
 namespace App\Http\Resources\Author;
 
-use App\Http\Resources\Book\BookCollection;
-use App\Http\Resources\User\UserWithoutAuthorResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthorResource extends JsonResource
+class AuthorWithoutUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +17,6 @@ class AuthorResource extends JsonResource
         return [
             'id' => $this->id,
             'full_name' => $this->full_name,
-            'user' => new UserWithoutAuthorResource($this->user)
         ];
     }
 }

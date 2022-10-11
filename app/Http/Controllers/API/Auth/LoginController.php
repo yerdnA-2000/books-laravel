@@ -3,28 +3,27 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(LoginRequest $request)
     {
         if (Auth::check()) {
             return response()->json(['message' => 'Вы уже авторизованы']);
         }
 
-        $data = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string'
-        ]);
+        $data = $request->validated();
 
         if (Auth::attempt($data)) {
             Auth::user()->createNewApiToken();
 
-            return response()->json(['message' => 'Вы успешно авторизованы', 'user' => Auth::user()]);
+            return response()->json(['message' => 'Вы успешно авторизованы', 'user' => new UserResource(Auth::user())]);
         }
 
-        return response()->json(['message' => 'Ошибка авторизации'], 401);
+        return response()->json(['message' => 'Ошибка авторизации. Неправильные email или пароль'], 401);
     }
 }

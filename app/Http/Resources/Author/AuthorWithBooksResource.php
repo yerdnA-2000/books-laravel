@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Author;
 
 use App\Http\Resources\Book\BookWithoutAuthorCollection;
+use App\Http\Resources\User\UserWithoutAuthorResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthorWithBooksResource extends JsonResource
@@ -19,6 +20,7 @@ class AuthorWithBooksResource extends JsonResource
 
             'full_name' => $this->full_name,
             'books' => new BookWithoutAuthorCollection($this->books),
+            'user' => new UserWithoutAuthorResource($this->user),
         ];
     }
 }

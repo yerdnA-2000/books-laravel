@@ -12,13 +12,13 @@ class Service
     public function create($data) : User
     {
         $role = Role::where('slug', 'author')->first();
-        $createBooks = Permission::where('slug', 'create-books')->first();
+
+        $author = new Author($data);
 
         $user = User::create($data);
 
-        $user->roles()->attach($role);
-        $user->permissions()->attach($createBooks);
-        $user->author()->save(new Author(['full_name' => 'null']));
+        $user->roles()->sync($role->id);
+        $user->author()->save($author);
 
         return $user;
     }

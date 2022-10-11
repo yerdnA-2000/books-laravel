@@ -17,10 +17,13 @@ class EditController extends Controller
             abort(403, 'НЕТ ПРАВ');
         }
 
+        $is_my_user = Auth::id() == $admin->id;
+
         $role = Role::where('slug', 'admin')->first();
         $permissions = Permission::orderBy('title')->get()->pluck('title', 'id');
         $thisAdminPermissions = $admin->permissions->pluck('id')->all();
 
-        return view('users.edit', compact('role', 'permissions', 'admin', 'thisAdminPermissions'));
+        return view('users.edit',
+            compact('role', 'permissions', 'admin', 'thisAdminPermissions', 'is_my_user'));
     }
 }

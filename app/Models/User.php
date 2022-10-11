@@ -27,7 +27,7 @@ class User extends Authenticatable
     }
 
     public function createNewApiToken() {
-        $this->update(['api_token' => Str::random(80)]);
+        $this->update(['api_token' => Str::random(60)]);
     }
 
     public function clearApiToken() {

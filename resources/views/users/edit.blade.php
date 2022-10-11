@@ -49,6 +49,7 @@
                         @enderror
                     </td>
                 </tr>
+                @if(!$is_my_user)
                 <tr>
                     <td>Назначение прав</td>
                     <td>
@@ -65,6 +66,7 @@
                         @enderror
                     </td>
                 </tr>
+                @endif
                 </tbody>
             </table>
             <input type="hidden" hidden name="id" value="{{ $admin->id }}">

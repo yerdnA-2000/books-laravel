@@ -24,7 +24,17 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'genres' => 'nullable|array'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.string' => 'Это поле не соответствует текстовому формату',
+            'title.max' => 'Слишком много символов',
+            'genres.string' => 'Данные в поле не соответствуют формату',
         ];
     }
 }
