@@ -1,66 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="100" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Тестовый проект (Андреев А.В.)
 
-## About Laravel
+###Установка
+Порядок действий для корректной установки проекта:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Запустить команду "composer install";
+- Запустить команду "npm install";
+- Запустить команду "npm run build" или "vite build";
+- Создать базу данных для проекта;
+- Создать файл ".env" по примеру ".env.example" и указать в нём настройки подключения к базе данных;
+- Запустить команду "php artisan migrate --seed" для заполнения БД таблицами и тестовыми данными;
+- Запустить ваш сервер, например, запустить команду "php artisan serve";
+- Перейти по адресу запущенного сервера;
+- При корректной установке откроется страница авторизации;
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Администраторская часть
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Порядок работы в административной части:
 
-## Learning Laravel
+- Страница авторизации доступна по адресам "/login" ("/" если пользователь не авторизован);
+- Данные email и пароль для входа в панель администратора cо всеми правами указаны вверху над формой авторизации:
+  - Email - admin@test.com;
+  - Пароль - admin);
+- Данные второго администратора (неполные права): 
+  - Email - admin2@test.com;
+  - Пароль - admin2;
+- При входе в администраторскую часть откротся страница "Панель управления", на которой указан список прав текущего администратора;
+- Навигация по сайту находится в шапке.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Пользовательская часть API
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Аутентицикация пользователя происходит с помощью API token (поле "api_token" в таблице "users").
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Тестирование в Postman
 
-## Laravel Sponsors
+В качестве примера будет использоваться корневой адрес - http://localhost:8000/api/
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+В Headers необходимо добавить:
+- KEY: Accept;
+- VALUE: application/json.
 
-### Premium Partners
+##### Запрос на авторизацию пользователя:
+- POST - http://localhost:8000/api/login
+- Тестовые данные авторов:
+  - Email / Пароль - vasya@test.com / vasya;
+  - Email / Пароль - maxim@test.com / maxim;
+- При успешной авторизации вернется пользователь с api_token;
+- Для дальнейшей аутентификации необходимо добавить значения поля "api_token" в Authorization (например, в Bearer token) или в GET-параметр запроса.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+##### Получение списка книг с именем автора:
+- GET - http://localhost:8000/api/books
+- Авторизация не обязательна.
 
-## Contributing
+##### Получение данных книги по id:
+- GET - http://localhost:8000/api/books/<id>
+- Authorization - Авторизация не обязательна;
+- Uri <id> - идентификатор книги, по умолчанию добавлено 5 книг - id = {1, 2, 3, 4, 5}.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+##### Получение списка авторов с указанием количества книг:
+- GET - http://localhost:8000/api/authors
+- Authorization - Авторизация не обязательна.
 
-## Code of Conduct
+##### Получение данных автора со списком книг:
+- GET - http://localhost:8000/api/authors/<id>
+- Authorization - Авторизация не обязательна;
+- Uri <id> - идентификатор автора, по умолчанию добавлено 2 автора - id = {1, 2}.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+##### Выход из системы:
+- GET - http://localhost:8000/api/logout
+- Authorization - api_token.
 
-## Security Vulnerabilities
+##### Обновление данных автора (можно обновлять только свои данные):
+- PATCH - http://localhost:8000/api/authors/<id>
+- Authorization - api_token;
+- Поля:
+  - full_name.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+##### Обновление данных книги, (можно обновлять только свою книгу)
+- PATCH - http://localhost:8000/api/books/<id>
+- Authorization - api_token;
+- Поля:
+    - "title";
+    - "genres[]" = {1, 2, ..., 10, 11}.
 
-## License
+##### Удаление книги (можно удалять только свою книгу)
+- DELETE - http://localhost:8000/api/books/<id>
+- Authorization - api_token.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Структура БД
+
+#### Таблицы: 
+- Миграции;
+- Роли;
+- Разрешения;
+- Роли_Разрешения;
+- Пользователи;
+- Пользователи_Роли;
+- Пользователи_Разрешения;
+- Авторы;
+- Книги;
+- Жанры;
+- Книги_Жанры.
+
+Структура представлена ниже на рисунке.
+
+<a href="https://drive.google.com/uc?export=view&id=1Z5ZhTzAJTAIttnZR6lmAD5YzcFk6zms4"><img src="https://drive.google.com/uc?export=view&id=1Z5ZhTzAJTAIttnZR6lmAD5YzcFk6zms4" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+
