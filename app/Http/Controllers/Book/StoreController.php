@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Book;
 
+use App\DTO\BookForm;
 use App\Http\Requests\Book\StoreRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,8 @@ class StoreController extends BaseController
             abort(403, 'НЕТ ПРАВ');
         }
 
-        $data = $request->validated();
+        $data = BookForm::fromRequest($request);
+        //$data = $request->validated();
 
         $book = $this->service->create($data);
 
